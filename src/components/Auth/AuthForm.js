@@ -4,6 +4,7 @@ import classes from './AuthForm.module.css';
 
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
  
   const emailInputRef =useRef();
   const passwordInputRef = useRef();
@@ -19,6 +20,7 @@ const AuthForm = () => {
    const enteredEmail = emailInputRef.current.value;
    const enteredPassword = passwordInputRef.current.value;
 
+   setIsLoading(true);
    if(isLogin){
 
    }else{
@@ -35,12 +37,17 @@ const AuthForm = () => {
      }
     }
     ).then(res=>{
+      setIsLoading(false)
       if(res.ok) {
         //..
       }else {
       return  res.json().then(data=>{
-          //show an error modal
-          console.log(data);
+       let errorMessage ='Authentication Failed!';
+      //  if(data && data.error && data.error.message){
+         
+      //    errorMessage = data.error.message;
+      //  }
+         alert(errorMessage) 
         })
       }
     })
