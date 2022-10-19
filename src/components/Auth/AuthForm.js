@@ -34,7 +34,16 @@ const AuthForm = () => {
       'content-type': 'application/json'
      }
     }
-    );
+    ).then(res=>{
+      if(res.ok) {
+        //..
+      }else {
+      return  res.json().then(data=>{
+          //show an error modal
+          console.log(data);
+        })
+      }
+    })
     
    }
   }
