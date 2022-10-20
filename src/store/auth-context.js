@@ -9,34 +9,37 @@ const AuthContext = React.createContext({
   logout: () => {},
 });
 
-
 //adding auto logout
 const calculateRemainingTime = (expirationTime) => {
-   const currentTime = new Date().getTime();
-   const adjExpirationTime = new Date(expirationTime).getTime();
+  const currentTime = new Date().getTime();
+  const adjExpirationTime = new Date(expirationTime).getTime();
 
-   const remainingDuration = adjExpirationTime - currentTime;
+  const remainingDuration = adjExpirationTime - currentTime;
 
-   return remainingDuration;
+  return remainingDuration;
 };
 
 export const AuthContextProvider = (props) => {
-
-  const initailToken = localStorage.getItem('token');
+  const initailToken = localStorage.getItem("token");
   const [token, setToken] = useState(initailToken);
 
   const userIsLoggedIn = !!token; //not not token ,,,,,truethy or falsy value token is not empty it will return  true if token is empty it will return false,
 
-  const loginHandler = (token, expirationTime) => {
-    setToken(token);
-    localStorage.setItem('token', token);   //api buding the browser just like fetch function
-     const remainingTime = calculateRemainingTime(expirationTime);
-  };
-
   const logOutHandler = () => {
     setToken(null); //setToken null means i clear my token
-    localStorage.removeItem('token')
+    localStorage.removeItem("token");
   };
+
+
+  const loginHandler = (token, expirationTime) => {
+    setToken(token);
+    localStorage.setItem("token", token); //api buding the browser just like fetch function
+    const remainingTime = calculateRemainingTime(expirationTime);
+
+    setTimeout(logOutHandler, remainingTime)
+  };
+
+
   const contextValue = {
     token: token,
     isLoggedIn: userIsLoggedIn,
