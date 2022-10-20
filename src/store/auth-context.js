@@ -16,6 +16,8 @@ export const AuthContextProvider = (props) => {
 
   const loginHandler = (token) => {
     setToken(token);
+    localStorage.setItem('token', token);   //api buding the browser just like fetch function
+
   };
 
   const logOutHandler = () => {
