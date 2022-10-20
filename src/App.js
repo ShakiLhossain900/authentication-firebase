@@ -34,3 +34,9 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+//https://firebase.google.com/docs/reference/rest/auth#section-change-password    firebase auth rest api

@@ -10,7 +10,9 @@ const AuthContext = React.createContext({
 });
 
 export const AuthContextProvider = (props) => {
-  const [token, setToken] = useState(null);
+
+  const initailToken = localStorage.getItem('token');
+  const [token, setToken] = useState(initailToken);
 
   const userIsLoggedIn = !!token; //not not token ,,,,,truethy or falsy value token is not empty it will return  true if token is empty it will return false,
 
@@ -22,6 +24,7 @@ export const AuthContextProvider = (props) => {
 
   const logOutHandler = () => {
     setToken(null); //setToken null means i clear my token
+    localStorage.removeItem('token')
   };
   const contextValue = {
     token: token,
